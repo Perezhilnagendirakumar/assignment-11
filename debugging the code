@@ -1,0 +1,36 @@
+# fixing the bug 
+# R throws an  error while running the following code 
+tukey_multiple <- function(x) {
+  outliers <- array(TRUE,dim=dim(x))
+  for (j in 1:ncol(x))
+  {
+    outliers[,j] <- outliers[,j] && tukey.outlier(x[,j])
+  }
+  outlier.vec <- vector(length=nrow(x))
+  for (i in 1:nrow(x))
+  { outlier.vec[i] <- all(outliers[i,]) } return(outlier.vec) } 
+# when trying to troubleshoot the error I witnessed the following return function on the 
+#line 11 mainly contributes to the error as there was no line break in differentiating a set 
+#instruction . 
+#solution1 :
+tukey_multiple <- function(x) {
+  outliers <- array(TRUE,dim=dim(x))
+  for (j in 1:ncol(x))
+  {
+    outliers[,j] <- outliers[,j] && tukey.outlier(x[,j])
+  }
+  outlier.vec <- vector(length=nrow(x))
+  for (i in 1:nrow(x))
+  { outlier.vec[i] <- all(outliers[i,]) } 
+  return(outlier.vec) } # the bug was resolved by adding return statement in a newline .
+# solution2:
+tukey_multiple <- function(x) {
+  outliers <- array(TRUE,dim=dim(x))
+  for (j in 1:ncol(x))
+  {
+    outliers[,j] <- outliers[,j] && tukey.outlier(x[,j])
+  }
+  outlier.vec <- vector(length=nrow(x))
+  for (i in 1:nrow(x))
+  { outlier.vec[i] <- all(outliers[i,]) } ; return(outlier.vec) }# this can also be resolved using ; semicolon to 
+# differentiate a set of instructions 
